@@ -1,21 +1,26 @@
-import Nav from 'react-bootstrap/Nav';
+import Nav from "react-bootstrap/Nav";
+import { Coin, Robot } from "react-bootstrap-icons";
 
 function TopBar() {
-  return (
-    <Nav variant="tabs" defaultActiveKey="/home">
-      <Nav.Item>
-        <Nav.Link href="/home">Active</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="link-1">Option 2</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="disabled" disabled>
-          Disabled
-        </Nav.Link>
-      </Nav.Item>
-    </Nav>
-  );
+    return (
+        <Nav variant="tabs" defaultActiveKey="/home">
+            <Nav.Item>
+                <Nav.Link href="/">Ai voice</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link href="/TtsAiPage"><Robot /></Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link href="/CreditShop"><Coin /></Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link href="/LoginPage">login</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link href="/SignUpPage">sign up</Nav.Link>
+            </Nav.Item>
+        </Nav>
+    );
 }
 
 export default TopBar;
