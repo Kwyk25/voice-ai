@@ -1,13 +1,17 @@
 import Nav from "react-bootstrap/Nav";
+import { Coin, Robot } from "react-bootstrap-icons";
 
 function TopBar() {
     return (
         <Nav variant="tabs" defaultActiveKey="/home">
             <Nav.Item>
-                <Nav.Link href="/">logo here</Nav.Link>
+                <Nav.Link href="/">Ai voice</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-                <Nav.Link href="/CreditShop">Credits</Nav.Link>
+                <Nav.Link href="/TtsAiPage"><Robot /></Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link href="/CreditShop"><Coin /></Nav.Link>
             </Nav.Item>
             <Nav.Item>
                 <Nav.Link href="/LoginPage">login</Nav.Link>
