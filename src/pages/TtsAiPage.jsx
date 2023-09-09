@@ -1,11 +1,11 @@
 import "../App.css"
 import Default from "./DefaultPage";
 
-export default function HomePage() {
+export default function TtsAiPage() {
     return (
         <Default className="bg-green-100">
             <div>
-                <h2>home</h2>
+                <h2>Ai model</h2>
             </div>
         </Default>
     );
