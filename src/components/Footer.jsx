@@ -1,36 +1,31 @@
+import { Facebook, Instagram, Youtube, Twitter} from "react-bootstrap-icons";
+import "../App.css"
 
 function Footer() {
     return (
-        <footer class="bg-gradient-to-r from-cyan-300 via-green-300 to-cyan-300 text-black py-20">
-            <div class="container mx-auto px-4">
-                <div class="flex flex-wrap items-center justify-between">
-                    <div class="w-full md:w-1/4 mb-4 md:mb-0">
-                        
-                    </div>
-                    <div class="w-full md:w-1/4 mb-4 md:mb-0">
-                        <h3 class="text-lg mb-2">Follow us on Instagram</h3>
-                        <ul class="flex space-x-4 ">
-                            <li>
-                               hello
-                            </li>
-                        </ul>
-                    </div>
+        <footer class="bg-slate-950 text-white">
+<div class="footer">
+<div class="row">
+<a href="#"><Instagram /></a>
+<a href="#"><Facebook /></a>
+<a href="#"><Youtube /></a>
+<a href="#"><Twitter /></a>
+</div>
 
-                    <div className="md:w-1/4">
-                        <div>
-                            <h5>Operating Hours</h5>
-                        </div>
-                        <div>Weekdays: 08:00-22:00</div>
-                        <div>Weekends: 08:00-12:00</div>
-                    </div>
-                    <div class="md:w-1/4">
-                        <p class="text-sm">
-                            &copy; 2023 Nails by Abby. All rights reserved.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </footer>
+<div class="row decoration-none">
+<ul className="no-underline hover:underline">
+<li className="no-underline hover:underline"><a href="#">Contact us</a></li>
+<li><a href="#">Our Services</a></li>
+<li><a href="#">Terms & Conditions</a></li>
+</ul>
+</div>
+
+<div class="row">
+Voice AI Copyright © 2023 Voice AI - All rights reserved || Ryan Huot || Kyle Van Wyk || Noah Arion
+</div>
+</div>
+</footer>
+
     );
 }
 export default Footer;
