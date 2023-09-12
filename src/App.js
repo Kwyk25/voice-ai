@@ -5,12 +5,14 @@ import CreditShop from "./pages/CreditShop";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage"
 import TtsAiPage from "./pages/TtsAiPage";
+import Error404Page from "./pages/Error404Page";
 
 function App() {
     return (
         <div className="App">
             <Router>
                 <Routes>
+                    <Route path='*' element={<Error404Page />} />
                     <Route path="/" element={<HomePage />} />
                     <Route path="/CreditShop" element={<CreditShop />} />
                     <Route path="/LoginPage" element={<LoginPage />} />
