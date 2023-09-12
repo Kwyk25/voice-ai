@@ -8,7 +8,7 @@ export default function LoginPage() {
 
     return (
         <Default>
-            <div>
+            <div className="pt-5">
                 <h2>login</h2>
             </div>
         </Default>
