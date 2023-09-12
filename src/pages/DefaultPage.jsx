@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 
 const Default = (props) => {
     return (
-        <div>
+        <div className="bg-blue-950">
             <TopBar />
             {props.children}
             <Footer />
