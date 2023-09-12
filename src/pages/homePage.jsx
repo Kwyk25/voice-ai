@@ -6,9 +6,10 @@ import PlayBtn from "../components/ExamplesAi";
 export default function HomePage() {
     return (
         <Default>
-            <div className="">
+            <div>
                 <Header />
-                <PlayBtn />
+                <h2 >Here some examples</h2>
+                <PlayBtn/>
             </div>
         </Default>
     );

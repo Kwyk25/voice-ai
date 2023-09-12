@@ -5,7 +5,7 @@ function Header() {
         <body>
             <div>
                 <img 
-                className=""
+                className="mb-5"
                 src={Logo}
                 alt="Logo">
                 </img>

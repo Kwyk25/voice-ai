@@ -1,4 +1,5 @@
 import "../App.css";
+import Button from "react-bootstrap/Button";
 import Default from "./DefaultPage";
 import { supabase } from "../supabaseClient";
 import { useState } from "react";
@@ -40,12 +41,13 @@ export default function SignUpPage() {
 
   return (
     <Default className="bg-green-100">
-      <div>
+      <div className="pt-5">
         <h2>sign up</h2>
         <form onSubmit={emailSignUpForm} id="signUpForm">
           <div>
-            <label htmlFor="email">Email:</label>
+            <label className="text-white" htmlFor="email">Email:</label>
             <input
+              className="bg-slate-900 text-white my-2"
               type="email"
               id="email"
               name="email"
@@ -56,8 +58,9 @@ export default function SignUpPage() {
             />
           </div>
           <div>
-            <label htmlFor="password">Password:</label>
+            <label className="text-white" htmlFor="password">Password:</label>
             <input
+              className="bg-slate-900 text-white my-2"
               type="password"
               id="password"
               name="password"
@@ -68,9 +71,10 @@ export default function SignUpPage() {
             />
           </div>
           <div>
-            <button type="submit">Sign Up</button>
+            <Button className="text-white" type="submit">Sign Up</Button>
           </div>
         </form>
+        If you already have an account click <a href="/LoginPage">Here</a>
       </div>
     </Default>
   );
