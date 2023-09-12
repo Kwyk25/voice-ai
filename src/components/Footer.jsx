@@ -13,8 +13,8 @@ function Footer() {
 </div>
 
 <div class="row decoration-none">
-<ul className="no-underline hover:underline">
-<li className="no-underline hover:underline"><a href="#">Contact us</a></li>
+<ul className="linksList">
+<li><a href="#">Contact us</a></li>
 <li><a href="#">Our Services</a></li>
 <li><a href="#">Terms & Conditions</a></li>
 </ul>
