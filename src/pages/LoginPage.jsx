@@ -7,7 +7,7 @@ export default function LoginPage() {
 
 
     return (
-        <Default className="bg-green-100">
+        <Default>
             <div>
                 <h2>login</h2>
             </div>
