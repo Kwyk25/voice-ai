@@ -1,11 +1,14 @@
 import "../App.css"
 import Default from "./DefaultPage";
+import Header from "../components/headerLogo";
+import PlayBtn from "../components/ExamplesAi";
 
 export default function HomePage() {
     return (
-        <Default className="bg-green-100">
-            <div>
-                <h2>home</h2>
+        <Default>
+            <div className="">
+                <Header />
+                <PlayBtn />
             </div>
         </Default>
     );
