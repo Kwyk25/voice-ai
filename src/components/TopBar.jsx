@@ -2,6 +2,8 @@ import Nav from "react-bootstrap/Nav";
 import { Coin, Robot } from "react-bootstrap-icons";
 
 function TopBar() {
+
+
     return (
         <Nav variant="tabs" defaultActiveKey="/home">
             <Nav.Item>
