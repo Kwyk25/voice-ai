@@ -6,6 +6,7 @@ import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage"
 import TtsAiPage from "./pages/TtsAiPage";
 import Error404Page from "./pages/Error404Page";
+import CheckoutPage from "./pages/CheckoutPage";
 
 function App() {
     return (
@@ -18,6 +19,7 @@ function App() {
                     <Route path="/LoginPage" element={<LoginPage />} />
                     <Route path="/SignUpPage" element={<SignUpPage />} />
                     <Route path="/TtsAiPage" element={<TtsAiPage />} />
+                    <Route path="/CheckoutPage" element={<CheckoutPage />} />
                 </Routes>
             </Router>
         </div>
