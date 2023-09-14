@@ -1,14 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/homePage";
-import CreditShop from "./pages/CreditShop";
-import LoginPage from "./pages/LoginPage";
-import SignUpPage from "./pages/SignUpPage";
-import TtsAiPage from "./pages/TtsAiPage";
-import Error404Page from "./pages/Error404Page";
-import CheckoutPage from "./pages/CheckoutPage";
+import {TestApi, HomePage, CreditShop, LoginPage, SignUpPage, TtsAiPage, Error404Page, CheckoutPage} from './pages'
 import { useEffect, useState } from "react";
-import TestApi from "./pages/apiTestPage";
 import ArticleStatus from "./api/apiReadTransribed";
 
 function App() {

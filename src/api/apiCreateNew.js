@@ -31,6 +31,8 @@ function ApiClient({ voice, text, speed, title }) {
 
         const responseData = await response.json();
         console.log(responseData);
+
+        //TODO: ADD TRANSCRIBEDID WITH LOGGED IN USER TO DB
       } catch (err) {
         console.error(err);
       }

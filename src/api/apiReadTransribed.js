@@ -27,6 +27,7 @@ export default function ArticleStatus() {
 
         const responseData = await response.json();
         setStatus(responseData);
+        //COMPARE TO TRANSCRIBED
       } catch (err) {
         console.error(err);
       }
