@@ -1,5 +1,6 @@
 import Nav from "react-bootstrap/Nav";
 import { Coin, Robot } from "react-bootstrap-icons";
+import LogOutBtn from "./LogOut";
 
 function TopBar() {
 
@@ -34,6 +35,9 @@ function TopBar() {
                 <Nav.Link className="text-white px-4" href="/SignUpPage">
                     sign up
                 </Nav.Link>
+            </Nav.Item>
+            <Nav.Item className="text-white px-4">
+                <LogOutBtn/>
             </Nav.Item>
         </Nav>
     );
