@@ -8,6 +8,8 @@ import TtsAiPage from "./pages/TtsAiPage";
 import Error404Page from "./pages/Error404Page";
 import CheckoutPage from "./pages/CheckoutPage";
 import { useEffect, useState } from "react";
+import TestApi from "./pages/apiTestPage";
+import ArticleStatus from "./api/apiReadTransribed";
 
 function App() {
   const [token, setToken] = useState(false);
@@ -35,6 +37,8 @@ function App() {
           <Route path="/SignUpPage" element={<SignUpPage />} />
           <Route path="/TtsAiPage" element={<TtsAiPage />} />
           <Route path="/CheckoutPage" element={<CheckoutPage />} />
+          <Route path="/testApi" element={<TestApi/>} />
+          <Route path="/loadTranscripe" element={<ArticleStatus/>} />
         </Routes>
       </Router>
     </div>

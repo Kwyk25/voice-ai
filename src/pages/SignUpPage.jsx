@@ -10,6 +10,8 @@ export default function SignUpPage() {
   })
   console.log(formData)
   
+
+  //Updates formData when input is inputted 
   function handleChange(e){
     setFormData((prevFormData) => {
       return {
@@ -19,6 +21,8 @@ export default function SignUpPage() {
     })
   }
 
+
+  //Adds formData to our Database when submit is pressed.
   async function handleSubmit(e){
     e.preventDefault()
     try {
@@ -28,7 +32,7 @@ export default function SignUpPage() {
           password: formData.password,
           options: {
             data: {
-              username: formData.userName
+              userName: formData.userName
             }
           }
         }
@@ -78,7 +82,7 @@ export default function SignUpPage() {
             />
           </div>
           <div>
-            <button type="submit" className="text-white">Sign Up</button>
+            <Button type="submit" className="text-white">Sign Up</Button>
           </div>
         </form>
         If you already have an account click <a href="/LoginPage">Here</a>

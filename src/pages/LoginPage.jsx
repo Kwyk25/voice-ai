@@ -12,6 +12,8 @@ export default function LoginPage({setToken}) {
   });
   console.log(formData);
 
+
+  //Updates formData when input is inputted 
   function handleChange(e) {
     setFormData((prevFormData) => {
       return {
@@ -20,6 +22,8 @@ export default function LoginPage({setToken}) {
       };
     });
   }
+
+  //Checks if user is inside of database.  If(user) = log user in and redirect to homepage.  else = gives user message credentials does not exist or is not correct.
   async function handleSubmit(e) {
     e.preventDefault();
     try {
@@ -30,6 +34,13 @@ export default function LoginPage({setToken}) {
       
       if(error) throw error
       console.log(data)
+
+      async function getUser(){
+      const { data: { user } } = await supabase.auth.getUser()
+      console.log(user)
+      }
+
+      getUser()
       setToken(data)
       navigate('/')
     } catch (error) {
