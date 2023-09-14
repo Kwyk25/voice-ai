@@ -20,7 +20,6 @@ export default function LoginPage({setToken}) {
       };
     });
   }
-
   async function handleSubmit(e) {
     e.preventDefault();
     try {
@@ -77,3 +76,4 @@ export default function LoginPage({setToken}) {
     </Default>
   );
 }
+
