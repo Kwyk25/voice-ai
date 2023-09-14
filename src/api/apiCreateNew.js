@@ -4,8 +4,8 @@ function ApiClient({ voice, text, speed, title }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const secretKey = '23a0f4c9b56a477f81c5eb818bd3add9';
-        const userId = 'ZW486JewBCe84sFEYBdrGYKIJwg1';
+        const secretKey = process.env.REACT_APP_PLAYHT_API_KEY;
+        const userId = process.env.REACT_APP_PLAYHT_API_ID;
 
         const options = {
           method: 'POST',
