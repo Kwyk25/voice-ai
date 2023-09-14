@@ -4,10 +4,10 @@ import Footer from "../components/Footer";
 const Default = (props) => {
     return (
         <div className="bg-blue-950">
-            <div className="max-w-7xl mx-auto">
-                <TopBar />
-                {props.children}
-            </div>
+            <TopBar />
+                <div className="max-w-7xl mx-auto">
+                    {props.children}
+                </div>
             <Footer />
         </div>
     );
