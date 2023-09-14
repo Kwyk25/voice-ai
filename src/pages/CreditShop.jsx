@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 export default function CreditShop() {
     return (
         <Default>
-            <div>
+            <div className="pt-5">
                 <h2>credit</h2>
                 <Button href="/CheckoutPage">Check Out</Button>
             </div>

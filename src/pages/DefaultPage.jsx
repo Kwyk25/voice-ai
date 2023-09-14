@@ -5,7 +5,9 @@ const Default = (props) => {
     return (
         <div className="bg-blue-950">
             <TopBar />
-            {props.children}
+                <div className="max-w-7xl mx-auto">
+                    {props.children}
+                </div>
             <Footer />
         </div>
     );
