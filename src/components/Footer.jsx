@@ -3,7 +3,7 @@ import "../App.css";
 
 function Footer() {
   return (
-    <footer className="bg-slate-950 text-white">
+    <footer className="bg-slate-950 text-white overflow-hidden">
       <div className="footer">
         <div className="py-5 mx-auto">
           <h3><ul className="flex list-none">
