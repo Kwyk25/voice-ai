@@ -6,35 +6,40 @@ import { useState } from "react";
 import Card from "react-bootstrap/Card";
 
 export default function SignUpPage() {
-    const [formData, setFormData] = useState({
-        userName: "",
-        email: "",
-        password: "",
-    });
-    console.log(formData);
+  const [formData, setFormData] = useState({
+    userName:'',email:'',password:''
+  })
+  console.log(formData)
+  
 
-    function handleChange(e) {
-        setFormData((prevFormData) => {
-            return {
-                ...prevFormData,
-                [e.target.name]: e.target.value,
-            };
-        });
-    }
+  //Updates formData when input is inputted 
+  function handleChange(e){
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        [e.target.name]:e.target.value
+      }
+    })
+  }
 
-    async function handleSubmit(e) {
-        e.preventDefault();
-        try {
-            const { data, error } = await supabase.auth.signUp({
-                email: formData.email,
-                password: formData.password,
-                options: {
-                    data: {
-                        username: formData.userName,
-                    },
-                },
-            });
-            alert("Check your email for verification link");
+
+  //Adds formData to our Database when submit is pressed.
+  async function handleSubmit(e){
+    e.preventDefault()
+    try {
+      const {data, error} = await supabase.auth.signUp(
+        {
+          email: formData.email,
+          password: formData.password,
+          options: {
+            data: {
+              userName: formData.userName
+            }
+          }
+        }
+      )
+      alert('Check your email for verification link')
+
         } catch (error) {
             console.log(`Error, ${error}`);
         }
@@ -106,3 +111,4 @@ export default function SignUpPage() {
         </Default>
     );
 }
+
