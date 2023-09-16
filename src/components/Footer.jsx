@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Youtube, Twitter, Linkedin, Github } from "react-bootstrap-icons";
+import { Facebook, Instagram, Twitter, Linkedin, Github } from "react-bootstrap-icons";
 import React from 'react';
 import {
   MDBFooter,

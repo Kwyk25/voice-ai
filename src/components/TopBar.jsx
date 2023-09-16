@@ -1,16 +1,13 @@
 import Nav from "react-bootstrap/Nav";
 import { useState } from "react";
-import { Robot } from "react-bootstrap-icons";
 import sessionToken from "../auth/sessionToken";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Button from "react-bootstrap/Button";
 import NavLink from "react-bootstrap/NavLink";
-import Modal from "react-bootstrap/Modal";
 
 function TopBar() {
     const token = sessionToken();
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -37,7 +34,7 @@ function TopBar() {
             </Nav.Item>
             {token ? (
                 <>
-                {/*OffCanvas*/}
+                    {/*OffCanvas*/}
                     <Offcanvas
                         show={show}
                         onHide={handleClose}
@@ -53,12 +50,17 @@ function TopBar() {
                             </Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body className="bg-slate-900 text-white">
-                            <NavLink  href="/profile" className="px-4 py-3">PROFILE</NavLink>
-                            <NavLink  href="/settings" className="px-4 py-3" >SETTINGS</NavLink>
-                            <Button variant="danger" className="my-20 mx-4">Log Out</Button>
+                            <NavLink href="/profile" className="px-4 py-3">
+                                PROFILE
+                            </NavLink>
+                            <NavLink href="/settings" className="px-4 py-3">
+                                SETTINGS
+                            </NavLink>
+                            <Button variant="danger" className="my-20 mx-4">
+                                Log Out
+                            </Button>
                         </Offcanvas.Body>
                     </Offcanvas>
-                    
 
                     <Nav.Item className="ml-auto">
                         <Button
