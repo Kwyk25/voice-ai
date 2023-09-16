@@ -1,15 +1,34 @@
 import Nav from "react-bootstrap/Nav";
-import { useState } from "react";
 import sessionToken from "../auth/sessionToken";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Button from "react-bootstrap/Button";
 import NavLink from "react-bootstrap/NavLink";
+import { fetchUserData } from "../auth/fetchUserData";
+import { useState, useEffect } from "react";
+
+
 import LogOutBtn from "./LogOut";
 
-function TopBar() {
-    const token = sessionToken();
-    const [show, setShow] = useState(false);
 
+function TopBar() {
+  const [loggedUser, setLoggedUser] = useState(null)
+  const token = sessionToken();
+
+  useEffect(() => {
+    async function fetchData() {
+      const userData = await fetchUserData();
+      if (userData) {
+        setLoggedUser(userData);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if(loggedUser) {
+    console.log(loggedUser.user_metadata.username)
+  }
+    const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -70,7 +89,7 @@ function TopBar() {
                             className=" bg-slate-900 mx-3 text-white"
                             onClick={handleShow}
                         >
-                            {token.user.user_metadata.username}
+                            {loggedUser ? loggedUser.user_metadata.username : ''}
                         </Button>
                     </Nav.Item>
                 </>
