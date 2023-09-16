@@ -6,6 +6,7 @@ async function ApiClient({ voice, text, speed, title }) {
   const [transcriptionId, setTranscriptionId] = useState(null);
   const [loggedUser, setLoggedUser] = useState(null);
 
+  //Retrieves UserData to recieve ID
   useEffect(() => {
     async function fetchData() {
       const userData = await fetchUserData();
@@ -17,6 +18,8 @@ async function ApiClient({ voice, text, speed, title }) {
     fetchData();
   }, []);
 
+
+  //Inserts TranscriptionId and UserId into DB after both have been set correctly
   useEffect(() => {
     async function insertData() {
       try {
@@ -47,6 +50,8 @@ async function ApiClient({ voice, text, speed, title }) {
     }
   }, [loggedUser, transcriptionId]);
 
+
+  //Fetches api results when theres a userLogged in and setsTranscriptionId after function is ran.
   useEffect(() => {
     if (loggedUser) {
       const fetchData = async () => {
