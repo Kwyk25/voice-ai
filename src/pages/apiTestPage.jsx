@@ -6,7 +6,7 @@ export default function TestApi() {
     console.log("EFFECT RAN")
     ApiClient({
       voice: "larry",
-      text: "This was said",
+      text: "Hello",
       speed: 1,
       title: "Finsihed Audio",
     });
