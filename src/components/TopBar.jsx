@@ -1,11 +1,10 @@
 import Nav from "react-bootstrap/Nav";
-import { useState } from "react";
 import sessionToken from "../auth/sessionToken";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Button from "react-bootstrap/Button";
 import NavLink from "react-bootstrap/NavLink";
 import { fetchUserData } from "../auth/fetchUserData";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 
 function TopBar() {
   const [loggedUser, setLoggedUser] = useState(null)

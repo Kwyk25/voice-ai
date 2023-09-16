@@ -4,15 +4,7 @@ import { useEffect, useState } from "react";
 
 function InputText() {
   const [voices, setVoices] = useState(null);
-
-  function playVoiceSample(sampleUrl) {
-    const audio = new Audio(sampleUrl);
-    audio.preload = "auto"; // Preload the audio
-    audio.play().catch((error) => {
-      console.error("Failed to play audio:", error);
-    });
-  }
-
+  
   async function getVoices() {
     try {
       const secretKey = process.env.REACT_APP_PLAYHT_API_KEY;
