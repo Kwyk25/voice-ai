@@ -5,19 +5,30 @@ function Footer() {
   return (
     <footer className="bg-slate-950 text-white overflow-hidden">
       <div className="footer">
-        <div className="row">
-          <a href="#">
-            <Instagram />
-          </a>
-          <a href="#">
-            <Facebook />
-          </a>
-          <a href="#">
-            <Youtube />
-          </a>
-          <a href="#">
-            <Twitter />
-          </a>
+        <div className="py-5 mx-auto">
+          <h3><ul className="flex list-none">
+            <li className="px-5">
+              <a href="#">
+                <Instagram />
+              </a>
+            </li>
+            <li className="px-5">
+              <a href="#">
+                <Facebook />
+              </a>
+            </li>
+            <li className="px-5">
+              <a href="#">
+                <Youtube />
+              </a>
+            </li>
+            <li className="px-5">
+              <a href="#">
+                <Twitter />
+              </a>
+            </li>
+          </ul>
+          </h3>
         </div>
 
         <div className="row decoration-none">
@@ -34,9 +45,11 @@ function Footer() {
           </ul>
         </div>
 
-        <div className="row">
-          Voice AI Copyright © 2023 Voice AI - All rights reserved || Ryan Huot
-          || Kyle Van Wyk || Noah Arion
+        <div className="mx-auto">
+          <p>
+            Voice AI Copyright © 2023 Voice AI - All rights reserved || Ryan
+            Huot || Kyle Van Wyk || Noah Arion
+          </p>
         </div>
       </div>
     </footer>
