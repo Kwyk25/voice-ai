@@ -21,7 +21,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="*" element={<Error404Page />} />
-          {token?<Route path="/" element={<HomePage />} />:""}
+          <Route path="/" element={<HomePage />} />
           <Route path="/CreditShop" element={<CreditShop />} />
           <Route
             path="/LoginPage"

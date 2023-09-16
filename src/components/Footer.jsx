@@ -3,7 +3,7 @@ import "../App.css";
 
 function Footer() {
   return (
-    <footer className="bg-slate-950 text-white">
+    <footer className="bg-slate-950 text-white overflow-hidden">
       <div className="footer">
         <div className="row">
           <a href="#">
