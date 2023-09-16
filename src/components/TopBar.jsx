@@ -6,6 +6,7 @@ import NavLink from "react-bootstrap/NavLink";
 import { fetchUserData } from "../auth/fetchUserData";
 import { useState, useEffect } from "react";
 
+
 function TopBar() {
   const [loggedUser, setLoggedUser] = useState(null)
   const token = sessionToken();
@@ -25,7 +26,6 @@ function TopBar() {
     console.log(loggedUser.user_metadata.username)
   }
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
