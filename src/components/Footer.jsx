@@ -1,58 +1,77 @@
-import { Facebook, Instagram, Youtube, Twitter } from "react-bootstrap-icons";
-import "../App.css";
+import { Facebook, Instagram, Youtube, Twitter, Linkedin, Github } from "react-bootstrap-icons";
+import React from 'react';
+import {
+  MDBFooter,
+  MDBContainer,
+  MDBCol,
+  MDBRow,
+  MDBIcon,
+  MDBBtn
+} from 'mdb-react-ui-kit';
 
-function Footer() {
+export default function App() {
   return (
-    <footer className="bg-slate-950 text-white overflow-hidden">
-      <div className="footer">
-        <div className="py-5 mx-auto">
-          <h3><ul className="flex list-none">
-            <li className="px-5">
-              <a href="#">
-                <Instagram />
-              </a>
-            </li>
-            <li className="px-5">
-              <a href="#">
-                <Facebook />
-              </a>
-            </li>
-            <li className="px-5">
-              <a href="#">
-                <Youtube />
-              </a>
-            </li>
-            <li className="px-5">
-              <a href="#">
-                <Twitter />
-              </a>
-            </li>
-          </ul>
-          </h3>
-        </div>
+    <MDBFooter className='bg-slate-950 text-center text-white'>
+      <MDBContainer className='p-4 pb-0'>
+        <section className='mb-4'>
+          <MDBBtn
+            floating
+            className='m-1'
+            style={{ backgroundColor: '#3b5998' }}
+            href='#!'
+            role='button'
+          >
+            <Facebook />
+          </MDBBtn>
 
-        <div className="row decoration-none">
-          <ul className="linksList">
-            <li>
-              <a href="#">Contact us</a>
-            </li>
-            <li>
-              <a href="#">Our Services</a>
-            </li>
-            <li>
-              <a href="#">Terms & Conditions</a>
-            </li>
-          </ul>
-        </div>
+          <MDBBtn
+            floating
+            className='m-1'
+            style={{ backgroundColor: '#55acee' }}
+            href='#!'
+            role='button'
+          >
+            <Twitter />
+          </MDBBtn>
 
-        <div className="mx-auto">
-          <p>
-            Voice AI Copyright © 2023 Voice AI - All rights reserved || Ryan
+          <MDBBtn
+            floating
+            className='m-1'
+            style={{ backgroundColor: '#ac2bac' }}
+            href='#!'
+            role='button'
+          >
+            <Instagram />
+          </MDBBtn>
+
+          <MDBBtn
+            floating
+            className='m-1'
+            style={{ backgroundColor: '#0082ca' }}
+            href='#!'
+            role='button'
+          >
+            <Linkedin/>
+          </MDBBtn>
+
+          <MDBBtn
+            floating
+            className='m-1'
+            style={{ backgroundColor: '#333333' }}
+            href='#!'
+            role='button'
+          >
+            <Github/>
+          </MDBBtn>
+        </section>
+      </MDBContainer>
+
+      <div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
+      Voice AI Copyright © 2023 Voice AI - All rights reserved || Ryan
             Huot || Kyle Van Wyk || Noah Arion
-          </p>
-        </div>
+        <a className='text-white' href='https://mdbootstrap.com/'>
+        </a>
       </div>
-    </footer>
+    </MDBFooter>
   );
 }
-export default Footer;
