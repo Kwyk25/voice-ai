@@ -4,6 +4,7 @@ import sessionToken from "../auth/sessionToken";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import Button from "react-bootstrap/Button";
 import NavLink from "react-bootstrap/NavLink";
+import LogOutBtn from "./LogOut";
 
 function TopBar() {
     const token = sessionToken();
@@ -58,7 +59,7 @@ function TopBar() {
                                 SETTINGS
                             </NavLink>
                             <Button variant="danger" className="my-20 mx-4">
-                                Log Out
+                                <LogOutBtn />
                             </Button>
                         </Offcanvas.Body>
                     </Offcanvas>
