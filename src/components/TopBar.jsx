@@ -1,12 +1,28 @@
 import Nav from "react-bootstrap/Nav";
 import { Coin, Robot } from "react-bootstrap-icons";
 import sessionToken from "../auth/sessionToken";
+import { fetchUserData } from "../auth/fetchUserData";
+import { useState,useEffect } from "react";
 
 
 function TopBar() {
+  const [loggedUser, setLoggedUser] = useState(null)
   const token = sessionToken();
-  
 
+  useEffect(() => {
+    async function fetchData() {
+      const userData = await fetchUserData();
+      if (userData) {
+        setLoggedUser(userData);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  if(loggedUser) {
+    console.log(loggedUser.user_metadata.username)
+  }
 
   return (
     <Nav
@@ -33,7 +49,7 @@ function TopBar() {
         <>
           <Nav.Item className="ml-auto">
             <Nav.Link className="text-white px-4" href="/ProfilePage">
-              {token.user.user_metadata.username}
+              {loggedUser ? loggedUser.user_metadata.username : ''}
               {/* DROP DOWN GOES HERE */}
             </Nav.Link>
           </Nav.Item>
@@ -42,12 +58,12 @@ function TopBar() {
         <>
           <Nav.Item className="ml-auto">
             <Nav.Link className="text-white px-4" href="/LoginPage">
-              login
+              Login
             </Nav.Link>
           </Nav.Item>
           <Nav.Item>
             <Nav.Link className="text-white px-4" href="/SignUpPage">
-              sign up
+              Sign up
             </Nav.Link>
           </Nav.Item>
         </>
