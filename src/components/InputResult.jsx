@@ -4,7 +4,7 @@ import stock from "../assets/images/404.jpg";
 
 function InputResult() {
     return (
-        <Card style={{ width: "20rem" }} className="mx-auto">
+        <Card style={{ width: "20rem" }} className="mx-auto ">
             <Card.Img variant="top" src={stock} />
             <Card.Body>
                 <Card.Title>Card Title</Card.Title>
