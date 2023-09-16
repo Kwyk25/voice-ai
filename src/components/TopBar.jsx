@@ -7,6 +7,9 @@ import { fetchUserData } from "../auth/fetchUserData";
 import { useState, useEffect } from "react";
 
 
+import LogOutBtn from "./LogOut";
+
+
 function TopBar() {
   const [loggedUser, setLoggedUser] = useState(null)
   const token = sessionToken();
@@ -75,7 +78,7 @@ function TopBar() {
                                 SETTINGS
                             </NavLink>
                             <Button variant="danger" className="my-20 mx-4">
-                                Log Out
+                                <LogOutBtn />
                             </Button>
                         </Offcanvas.Body>
                     </Offcanvas>
