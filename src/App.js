@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import {TestApi, HomePage, CreditShop, LoginPage, SignUpPage, TtsAiPage, Error404Page, CheckoutPage} from './pages'
+import {TestApi, HomePage, CreditShop, LoginPage, SignUpPage, TtsAiPage, Error404Page, CheckoutPage, Settings} from './pages'
 import { useEffect, useState } from "react";
 import ArticleStatus from "./api/apiReadTransribed";
 
@@ -30,6 +30,7 @@ function App() {
           <Route path="/SignUpPage" element={<SignUpPage />} />
           <Route path="/TtsAiPage" element={<TtsAiPage />} />
           <Route path="/CheckoutPage" element={<CheckoutPage />} />
+          <Route path="/Settings" element={<Settings />} />
           <Route path="/testApi" element={<TestApi/>} />
           <Route path="/loadTranscripe" element={<ArticleStatus/>} />
         </Routes>
