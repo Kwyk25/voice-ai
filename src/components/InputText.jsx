@@ -47,38 +47,8 @@ function InputText() {
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label className="text-white"> input prompt</Form.Label>
-        <Form.Control placeholder="Welcome to bobs burgers!" />
+        <Form.Control as="textarea" rows={10} placeholder="Welcome to bobs burgers!" />
       </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label className="text-white">Select user</Form.Label>
-        <Form.Select>
-          <option>-Select-</option>
-          {voices
-            ? voices.voices.map((voice, index) => (
-                <option key={index}>
-                  {voice.name} | {voice.language}
-                </option>
-              ))
-            : null}
-        </Form.Select>
-        {/* {voices
-          ? voices.voices.map((voice, index) => (
-              <div key={index} className="mb-2">
-                <a
-                  href={voice.sample}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {voice.name} | {voice.language}
-                </a>
-                <button onClick={() => playVoiceSample(voice.sample)}>
-                  Play Voice
-                </button>
-              </div>
-            ))
-          : null} */}
-      </Form.Group>
-
       <Button>Generate Prompt</Button>
     </div>
   );
