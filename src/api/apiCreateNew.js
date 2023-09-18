@@ -1,108 +1,22 @@
-import { useEffect, useState } from "react";
-import { supabase } from "../supabaseClient";
-import { fetchUserData } from "../auth/fetchUserData";
+import React, { useEffect, useState } from "react";
+import apiClientLogic from "./apiClientLogic"; // Adjust the import path as needed
 
-async function ApiClient({ voice, text, speed, title }) {
+function ApiClient({ voice, text, speed, title }) {
   const [transcriptionId, setTranscriptionId] = useState(null);
   const [loggedUser, setLoggedUser] = useState(null);
 
-  //Retrieves UserData to recieve ID
   useEffect(() => {
-    async function fetchData() {
-      const userData = await fetchUserData();
-      if (userData) {
-        setLoggedUser(userData.id);
-      }
-    }
-
-    fetchData();
+    const { transcriptionId, loggedUser } = apiClientLogic(
+      voice,
+      text,
+      speed,
+      title
+    );
+    
+    setTranscriptionId(transcriptionId);
+    setLoggedUser(loggedUser);
+    console.log("APICLIENT", loggedUser, transcriptionId)
   }, []);
-
-
-  //Inserts TranscriptionId and UserId into DB after both have been set correctly
-  useEffect(() => {
-    async function insertData() {
-      try {
-        if (transcriptionId !== null) {
-          const { data, error } = await supabase
-            .from("Transcription")
-            .upsert([
-              {
-                newTranscription: transcriptionId,
-                userId: loggedUser,
-              },
-            ])
-            .select();
-
-          if (error) {
-            console.error("Error inserting data:", error.message);
-          } else {
-            console.log("Data inserted successfully:", data);
-          }
-        }
-      } catch (err) {
-        console.error("An error occurred during data insertion:", err);
-      }
-    }
-
-    if (loggedUser && transcriptionId !== null) {
-      insertData();
-    }
-  }, [loggedUser, transcriptionId]);
-
-
-  //Fetches api results when theres a userLogged in and setsTranscriptionId after function is ran.
-  useEffect(() => {
-    if (loggedUser) {
-      const fetchData = async () => {
-        try {
-          const secretKey = process.env.REACT_APP_PLAYHT_API_KEY;
-          const userId = process.env.REACT_APP_PLAYHT_API_ID;
-
-          const options = {
-            method: "POST",
-            headers: {
-              accept: "application/json",
-              "content-type": "application/json",
-              Authorization: secretKey,
-              "X-User-Id": userId,
-            },
-            body: JSON.stringify({
-              voice: voice,
-              content: [text],
-              speed: speed,
-              title: title,
-              preset: "balanced",
-            }),
-          };
-
-          const response = await fetch(
-            "https://play.ht/api/v1/convert/",
-            options
-          );
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-
-          const responseData = await response.json();
-          console.log("Response data:", responseData);
-          
-
-          if (responseData && responseData.transcriptionId) {
-            console.log("Transcription ID set:", responseData.transcriptionId);
-            setTranscriptionId(responseData.transcriptionId);
-          } else {
-            console.log("No transcriptionId found in response.");
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      };
-
-      fetchData();
-    }
-  }, [loggedUser]);
-
   return null;
 }
 

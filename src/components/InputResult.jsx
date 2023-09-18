@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import languageArray from "../data/languagesAndCodes";
 import { PlayBtn, PauseBtn } from "react-bootstrap-icons";
+import InputText from "./InputText";
 
-function InputResult() {
+function InputResult({ selectedVoice, onSelectedVoiceChange }) {
   const [voices, setVoices] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [currentAudio, setCurrentAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(null);
   const [isPlayingList, setIsPlayingList] = useState([]);
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const voicesPerPage = 7;
-  console.log(languageArray);
   async function getVoices() {
     try {
       const secretKey = process.env.REACT_APP_PLAYHT_API_KEY;
@@ -42,29 +43,57 @@ function InputResult() {
 
   useEffect(() => {
     getVoices();
+  }, []);
+
+  useEffect(() => {
     // Initialize isPlayingList with false values for each voice
     if (voices && voices.voices) {
       setIsPlayingList(new Array(voices.voices.length).fill(false));
     }
-  }, []);
+
+    // Check if audio is currently playing and update isPlayingList accordingly
+    if (currentAudio) {
+      currentAudio.onplay = () => {
+        setIsPlayingList((prevIsPlayingList) =>
+          prevIsPlayingList.map((_, i) => (i === currentIndex ? true : false))
+        );
+        setIsPlaying(true);
+      };
+      currentAudio.onpause = () => {
+        setIsPlayingList((prevIsPlayingList) =>
+          prevIsPlayingList.map((_, i) =>
+            i === currentIndex ? false : prevIsPlayingList[i]
+          )
+        );
+        setIsPlaying(false);
+      };
+    }
+  }, [voices, currentAudio]);
 
   function playVoiceSample(sampleUrl, index) {
-    if (currentAudio) {
-      // Pause the currently playing audio
+    if (currentAudio && isPlayingList[index]) {
+      // Pause the audio if it's currently playing
       currentAudio.pause();
-      currentAudio.currentTime = 0; // Rewind to the beginning
-      // Update the play/pause state for the previously playing audio
       setIsPlayingList((prevIsPlayingList) =>
         prevIsPlayingList.map((_, i) =>
           i === index ? false : prevIsPlayingList[i]
         )
       );
       setIsPlaying(false);
-    }
+    } else {
+      // Create a new audio element
+      const audio = new Audio(sampleUrl);
 
-    const audio = new Audio(sampleUrl);
+      audio.onended = () => {
+        // When the audio ends, reset the play state
+        setIsPlayingList((prevIsPlayingList) =>
+          prevIsPlayingList.map((_, i) =>
+            i === index ? false : prevIsPlayingList[i]
+          )
+        );
+        setIsPlaying(false);
+      };
 
-    if (!isPlayingList[index]) {
       // Play the audio
       audio.play().then(() => {
         setIsPlayingList((prevIsPlayingList) =>
@@ -72,24 +101,25 @@ function InputResult() {
         );
         setIsPlaying(true);
       });
-    } else {
-      // Pause the audio
-      audio.pause();
-      // Update the play/pause state
-      setIsPlaying(false);
-      setIsPlayingList((prevIsPlayingList) =>
-        prevIsPlayingList.map((_, i) =>
-          i === index ? false : prevIsPlayingList[i]
-        )
-      );
+
+      // Pause the currently playing audio, if any
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0; // Rewind to the beginning
+      }
+
+      setCurrentAudio(audio);
     }
-
-    setCurrentAudio(audio);
   }
 
-  function selectedVoice() {
-    //TODO
+  function handleVoiceSelection(voiceId) {
+    onSelectedVoiceChange(voiceId); 
   }
+
+  // useEffect(() => {
+  //     console.log(selectedVoice)
+  // },[selectedVoice])
+  
 
   const filteredVoices = voices?.voices.filter(
     (voice) => !selectedLanguage || voice.languageCode === selectedLanguage
@@ -175,7 +205,10 @@ function InputResult() {
         <tbody>
           {currentVoices ? (
             currentVoices.map((voice, index) => (
-              <tr key={index}>
+              <tr
+                key={index}
+                className={voice.name === selectedVoice ? "table-active" : ""}
+              >
                 <td>{voice.name}</td>
                 <td>{voice.language}</td>
                 <td>
@@ -189,7 +222,7 @@ function InputResult() {
                 <td>
                   <button
                     className="btn btn-success"
-                    onClick={() => selectedVoice(voice.id)}
+                    onClick={() => handleVoiceSelection(voice.name)}
                   >
                     Use
                   </button>
@@ -259,4 +292,4 @@ function InputResult() {
   );
 }
 
-export default InputResult;
+export default InputResult

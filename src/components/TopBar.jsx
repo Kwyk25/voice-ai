@@ -20,10 +20,7 @@ function TopBar() {
 
     fetchData();
   }, []);
-
-  if(loggedUser) {
-    console.log(loggedUser.user_metadata.username)
-  }
+  
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
