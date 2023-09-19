@@ -51,6 +51,11 @@ function TopBar() {
                     <h6>Credits</h6>
                 </Nav.Link>
             </Nav.Item>
+            <Nav.Item>
+                <Nav.Link className="text-white px-3" href="/SavedAudioPage">
+                    <h6>audio</h6>
+                </Nav.Link>
+            </Nav.Item>
             {token ? (
                 <>
                     {/*OffCanvas*/}
