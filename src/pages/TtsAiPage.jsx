@@ -28,7 +28,7 @@ export default function TtsAiPage() {
               onSelectedVoiceChange={handleSelectedVoiceChange}
             />
           </div>
-          <div className="w-1/2 p-4">
+          <div className="w-1/2 p-4 flex-wrap">
             <InputResult
               selectedVoice={selectedVoice}
               onSelectedVoiceChange={handleSelectedVoiceChange}

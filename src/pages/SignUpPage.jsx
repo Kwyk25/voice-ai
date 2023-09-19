@@ -47,13 +47,12 @@ export default function SignUpPage() {
 
     return (
         <Default>
-            <div className="py-20"></div>
             <div className="py-20">
                 <Card
                     className="bg-gradient-to-tr from-pink-500 via-blue-800 to-cyan-500 
                     mx-auto"
                     border="dark"
-                    style={{ width: "30rem" }}
+                    style={{ width: "90%", maxWidth: "30rem" }}
                 >
                     <h2 className="text-white py-4">SIGN UP</h2>
                     <form onSubmit={handleSubmit} id="signUpForm">
@@ -65,7 +64,7 @@ export default function SignUpPage() {
                                 id="userName"
                                 name="userName"
                                 onChange={handleChange}
-                                style={{ width: "20rem" }}
+                                style={{ width: "90%", maxWidth: "20rem" }}
                                 required
                             />
                         </div>
@@ -77,7 +76,7 @@ export default function SignUpPage() {
                                 id="email"
                                 name="email"
                                 onChange={handleChange}
-                                style={{ width: "20rem" }}
+                                style={{ width: "90%", maxWidth: "20rem" }}
                                 required
                             />
                         </div>
@@ -89,7 +88,7 @@ export default function SignUpPage() {
                                 id="password"
                                 name="password"
                                 onChange={handleChange}
-                                style={{ width: "20rem" }}
+                                style={{ width: "90%", maxWidth: "20rem" }}
                                 required
                             />
                         </div>
