@@ -6,23 +6,27 @@ import NavLink from "react-bootstrap/NavLink";
 import { fetchUserData } from "../auth/fetchUserData";
 import { useState, useEffect } from "react";
 
+import LogOutBtn from "./LogOut";
+
 function TopBar() {
-  const [loggedUser, setLoggedUser] = useState(null)
-  const token = sessionToken();
+    const [loggedUser, setLoggedUser] = useState(null);
+    const token = sessionToken();
 
-  useEffect(() => {
-    async function fetchData() {
-      const userData = await fetchUserData();
-      if (userData) {
-        setLoggedUser(userData);
-      }
+    useEffect(() => {
+        async function fetchData() {
+            const userData = await fetchUserData();
+            if (userData) {
+                setLoggedUser(userData);
+            }
+        }
+
+        fetchData();
+    }, []);
+
+    if (loggedUser) {
+        console.log(loggedUser.user_metadata.username);
     }
-
-    fetchData();
-  }, []);
-  
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -65,14 +69,11 @@ function TopBar() {
                             </Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body className="bg-slate-900 text-white">
-                            <NavLink href="/profile" className="px-4 py-3">
-                                PROFILE
-                            </NavLink>
                             <NavLink href="/settings" className="px-4 py-3">
-                                SETTINGS
+                                Menu
                             </NavLink>
                             <Button variant="danger" className="my-20 mx-4">
-                                Log Out
+                                <LogOutBtn />
                             </Button>
                         </Offcanvas.Body>
                     </Offcanvas>
@@ -83,7 +84,9 @@ function TopBar() {
                             className=" bg-slate-900 mx-3 text-white"
                             onClick={handleShow}
                         >
-                            {loggedUser ? loggedUser.user_metadata.username : ''}
+                            {loggedUser
+                                ? loggedUser.user_metadata.username
+                                : ""}
                         </Button>
                     </Nav.Item>
                 </>

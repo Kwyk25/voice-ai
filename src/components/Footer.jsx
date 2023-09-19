@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Youtube, Twitter, Linkedin, Github } from "react-bootstrap-icons";
+import { Facebook, Instagram, Twitter, Linkedin, Github } from "react-bootstrap-icons";
 import React from 'react';
 import {
   MDBFooter,
@@ -16,7 +16,7 @@ export default function App() {
         <section className='mb-4'>
           <MDBBtn
             floating
-            className='m-1'
+            className='m-1 border-0'
             style={{ backgroundColor: '#3b5998' }}
             href='#!'
             role='button'
@@ -26,7 +26,7 @@ export default function App() {
 
           <MDBBtn
             floating
-            className='m-1'
+            className='m-1 border-0'
             style={{ backgroundColor: '#55acee' }}
             href='#!'
             role='button'
@@ -36,7 +36,7 @@ export default function App() {
 
           <MDBBtn
             floating
-            className='m-1'
+            className='m-1 border-0'
             style={{ backgroundColor: '#ac2bac' }}
             href='#!'
             role='button'
@@ -46,7 +46,7 @@ export default function App() {
 
           <MDBBtn
             floating
-            className='m-1'
+            className='m-1 border-0'
             style={{ backgroundColor: '#0082ca' }}
             href='#!'
             role='button'
@@ -56,7 +56,7 @@ export default function App() {
 
           <MDBBtn
             floating
-            className='m-1'
+            className='m-1 border-0'
             style={{ backgroundColor: '#333333' }}
             href='#!'
             role='button'
