@@ -5,6 +5,7 @@ import CreateNewVoice from "./api/apiCreateNewVoices";
 import { useEffect, useState } from "react";
 import ArticleStatus from "./api/apiReadTransribed";
 import ListCustomeVoices from "./api/apiListOurVoices";
+import SavedAudioPage from "./pages/SavedAudioPage"
 
 function App() {
   const [token, setToken] = useState(false);
@@ -37,6 +38,8 @@ function App() {
           <Route path="/createVoice" element={<CreateNewVoice/>} />
           <Route path="/loadTranscripe" element={<ArticleStatus/>} />
           <Route path="/ListVoices" element={<ListCustomeVoices/>} />
+          <Route path="/SavedAudioPage" element={<SavedAudioPage/>} />
+          
         </Routes>
       </Router>
     </div>

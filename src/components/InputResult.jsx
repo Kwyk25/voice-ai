@@ -192,7 +192,7 @@ function InputResult({ selectedVoice, onSelectedVoiceChange }) {
           ))}
         </tbody>
       </table>
-      <nav className="ml-10">
+      <nav className>
         <ul className="pagination">
           <li className="page-item">
             <button
