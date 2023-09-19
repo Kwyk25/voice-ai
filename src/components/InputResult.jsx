@@ -8,36 +8,23 @@ function InputResult({ selectedVoice, onSelectedVoiceChange }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentAudio, setCurrentAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentIndex, setCurrentIndex] = useState(null);
   const [isPlayingList, setIsPlayingList] = useState([]);
-  const [selectedLanguage, setSelectedLanguage] = useState("");
   const voicesPerPage = 7;
+
   async function getVoices() {
     try {
-      const secretKey = process.env.REACT_APP_PLAYHT_API_KEY;
-      const userId = process.env.REACT_APP_PLAYHT_API_ID;
-
-      const options = {
-        method: "GET",
-        headers: {
-          accept: "application/json",
-          "content-type": "application/json",
-          Authorization: secretKey,
-          "X-User-Id": userId,
-        },
-      };
-
-      const response = await fetch("https://play.ht/api/v1/getVoices", options);
-
+      const response = await fetch(
+        "http://localhost:4005/api/playht/ultraRealisticVoices"
+      );
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
 
-      const responseData = await response.json();
-      setVoices(responseData);
-      console.log(responseData);
-    } catch (err) {
-      console.error(err);
+      const data = await response.json();
+      setVoices(data);
+    } catch (error) {
+      console.error(error);
+      // Handle errors
     }
   }
 
@@ -47,103 +34,83 @@ function InputResult({ selectedVoice, onSelectedVoiceChange }) {
 
   useEffect(() => {
     // Initialize isPlayingList with false values for each voice
-    if (voices && voices.voices) {
-      setIsPlayingList(new Array(voices.voices.length).fill(false));
+    if (voices) {
+      setIsPlayingList(new Array(voices.length).fill(false));
     }
-
-    // Check if audio is currently playing and update isPlayingList accordingly
-    if (currentAudio) {
-      currentAudio.onplay = () => {
-        setIsPlayingList((prevIsPlayingList) =>
-          prevIsPlayingList.map((_, i) => (i === currentIndex ? true : false))
-        );
-        setIsPlaying(true);
-      };
-      currentAudio.onpause = () => {
-        setIsPlayingList((prevIsPlayingList) =>
-          prevIsPlayingList.map((_, i) =>
-            i === currentIndex ? false : prevIsPlayingList[i]
-          )
-        );
-        setIsPlaying(false);
-      };
-    }
-  }, [voices, currentAudio]);
+  }, [voices]);
 
   function playVoiceSample(sampleUrl, index) {
-    if (currentAudio && isPlayingList[index]) {
-      // Pause the audio if it's currently playing
+    if (currentAudio && !currentAudio.paused) {
+      // If there's a current audio and it's playing, pause it
       currentAudio.pause();
       setIsPlayingList((prevIsPlayingList) =>
         prevIsPlayingList.map((_, i) =>
           i === index ? false : prevIsPlayingList[i]
         )
       );
-      setIsPlaying(false);
+      setIsPlaying(false); // Update isPlaying state
     } else {
-      // Create a new audio element
-      const audio = new Audio(sampleUrl);
-
-      audio.onended = () => {
-        // When the audio ends, reset the play state
-        setIsPlayingList((prevIsPlayingList) =>
-          prevIsPlayingList.map((_, i) =>
-            i === index ? false : prevIsPlayingList[i]
-          )
-        );
-        setIsPlaying(false);
-      };
-
-      // Play the audio
-      audio.play().then(() => {
+      if (currentAudio && currentAudio.paused) {
+        // If there's a current audio and it's paused, resume playing
+        currentAudio.play();
         setIsPlayingList((prevIsPlayingList) =>
           prevIsPlayingList.map((_, i) => (i === index ? true : false))
         );
-        setIsPlaying(true);
-      });
+        setIsPlaying(true); // Update isPlaying state
+      } else {
+        // If there's no current audio or it's paused, create and play the new audio
+        const audio = new Audio(sampleUrl);
 
-      // Pause the currently playing audio, if any
-      if (currentAudio) {
-        currentAudio.pause();
-        currentAudio.currentTime = 0; // Rewind to the beginning
+        audio.onended = () => {
+          // When the audio ends, reset the play state
+          setIsPlayingList((prevIsPlayingList) =>
+            prevIsPlayingList.map((_, i) =>
+              i === index ? false : prevIsPlayingList[i]
+            )
+          );
+          setIsPlaying(false); // Update isPlaying state
+        };
+
+        audio
+          .play()
+          .then(() => {
+            setIsPlayingList((prevIsPlayingList) =>
+              prevIsPlayingList.map((_, i) => (i === index ? true : false))
+            );
+            setIsPlaying(true);
+          })
+          .catch((error) => {
+            // Handle any errors that occur during playback
+            console.error("Error playing audio:", error);
+            setIsPlaying(false); // Ensure isPlaying is updated if there's an error
+          });
+
+        // Pause the currently playing audio, if any
+        if (currentAudio) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0; // Rewind to the beginning
+        }
+
+        setCurrentAudio(audio);
       }
-
-      setCurrentAudio(audio);
     }
   }
 
   function handleVoiceSelection(voiceId) {
-    onSelectedVoiceChange(voiceId); 
+    onSelectedVoiceChange(voiceId);
   }
 
-  // useEffect(() => {
-  //     console.log(selectedVoice)
-  // },[selectedVoice])
-  
-
-  const filteredVoices = voices?.voices.filter(
-    (voice) => !selectedLanguage || voice.languageCode === selectedLanguage
-  );
-
-  // Calculate the range of voices to display on the current page
-  const indexOfLastVoice = currentPage * voicesPerPage;
-  const indexOfFirstVoice = indexOfLastVoice - voicesPerPage;
-  const currentVoices = filteredVoices?.slice(
-    indexOfFirstVoice,
-    indexOfLastVoice
-  );
-
-  const totalPages = Math.ceil((voices?.voices.length || 0) / voicesPerPage);
-
-  const handlePageChange = (newPage) => {
-    if (newPage < 1) {
-      setCurrentPage(totalPages); // If on the first page, go to the last page
-    } else if (newPage > totalPages) {
-      setCurrentPage(1); // If on the last page, go to the first page
-    } else {
-      setCurrentPage(newPage);
-    }
+  // Function to get the voices for the current page
+  const getCurrentPageVoices = () => {
+    const indexOfLastVoice = currentPage * voicesPerPage;
+    const indexOfFirstVoice = indexOfLastVoice - voicesPerPage;
+    return voices ? voices.slice(indexOfFirstVoice, indexOfLastVoice) : [];
   };
+
+  // Calculate the total number of pages
+  const totalPages = voices
+    ? Math.ceil((voices.length || 0) / voicesPerPage)
+    : 0;
 
   // Calculate the range of visible page numbers (always 9 buttons)
   const visiblePageNumbers = [];
@@ -175,24 +142,19 @@ function InputResult({ selectedVoice, onSelectedVoiceChange }) {
     visiblePageNumbers.push(i);
   }
 
+  const handlePageChange = (newPage) => {
+    if (newPage < 1) {
+      setCurrentPage(totalPages); // If on the first page, go to the last page
+    } else if (newPage > totalPages) {
+      setCurrentPage(1); // If on the last page, go to the first page
+    } else {
+      setCurrentPage(newPage);
+    }
+  };
+
   return (
     <div>
       <h3>Voice List</h3>
-      <div>
-        <label htmlFor="languageFilter">Filter by Language: </label>
-        <select
-          id="languageFilter"
-          onChange={(e) => setSelectedLanguage(e.target.value)}
-          value={selectedLanguage}
-        >
-          <option value="">All</option>
-          {languageArray.map((languageObj) => (
-            <option value={languageObj.languageCode}>
-              {languageObj.language}
-            </option>
-          ))}
-        </select>
-      </div>
       <table className="table table-bordered">
         <thead>
           <tr>
@@ -203,49 +165,35 @@ function InputResult({ selectedVoice, onSelectedVoiceChange }) {
           </tr>
         </thead>
         <tbody>
-          {currentVoices ? (
-            currentVoices.map((voice, index) => (
-              <tr
-                key={index}
-                className={voice.name === selectedVoice ? "table-active" : ""}
-              >
-                <td>{voice.name}</td>
-                <td>{voice.language}</td>
-                <td>
-                  <button
-                    className="btn btn-primary"
-                    onClick={() => playVoiceSample(voice.sample, index)}
-                  >
-                    {isPlayingList[index] ? <PauseBtn /> : <PlayBtn />}
-                  </button>
-                </td>
-                <td>
-                  <button
-                    className="btn btn-success"
-                    onClick={() => handleVoiceSelection(voice.name)}
-                  >
-                    Use
-                  </button>
-                </td>
-              </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4">Loading...</td>
+          {getCurrentPageVoices().map((voice, index) => (
+            <tr
+              key={index}
+              className={voice.name === selectedVoice ? "table-active" : ""}
+            >
+              <td>{voice.name}</td>
+              <td>{voice.language}</td>
+              <td>
+                <button
+                  className="btn btn-primary"
+                  onClick={() => playVoiceSample(voice.sample, index)}
+                >
+                  {isPlayingList[index] ? <PauseBtn /> : <PlayBtn />}
+                </button>
+              </td>
+              <td>
+                <button
+                  className="btn btn-success"
+                  onClick={() => handleVoiceSelection(voice.name)}
+                >
+                  Use
+                </button>
+              </td>
             </tr>
-          )}
+          ))}
         </tbody>
       </table>
       <nav className="ml-10">
         <ul className="pagination">
-          <li className="page-item">
-            <button
-              className="page-link"
-              onClick={() => handlePageChange(currentPage - 5)}
-            >
-              {"<<"}
-            </button>
-          </li>
           <li className="page-item">
             <button
               className="page-link"
@@ -278,18 +226,10 @@ function InputResult({ selectedVoice, onSelectedVoiceChange }) {
               {">"}
             </button>
           </li>
-          <li className="page-item">
-            <button
-              className="page-link"
-              onClick={() => handlePageChange(currentPage + 5)}
-            >
-              {">>"}
-            </button>
-          </li>
         </ul>
       </nav>
     </div>
   );
 }
 
-export default InputResult
+export default InputResult;

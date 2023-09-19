@@ -12,10 +12,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended:false }));
 app.use(express.static(path.join(__dirname, '../build')))
 
+
 // CONTROLLERS
-const appointmentsController = require('./controllers/appointments_controller')
+const apiController = require('./controllers/playHtApi_controller')
 const { error } = require('console')
-app.use('/api/appointments', appointmentsController)
+app.use('/api/playht', apiController)
 
 // LISTEN
 app.listen(4005, () => {
