@@ -1,47 +1,23 @@
-import { useEffect } from 'react';
+import React, { useEffect, useState } from "react";
+import apiClientLogic from "./apiClientLogic"; // Adjust the import path as needed
 
 function ApiClient({ voice, text, speed, title }) {
+  const [transcriptionId, setTranscriptionId] = useState(null);
+  const [loggedUser, setLoggedUser] = useState(null);
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const secretKey = process.env.REACT_APP_PLAYHT_API_KEY;
-        const userId = process.env.REACT_APP_PLAYHT_API_ID;
-
-        const options = {
-          method: 'POST',
-          headers: {
-            accept: 'application/json',
-            'content-type': 'application/json',
-            Authorization: secretKey,
-            'X-User-Id': userId,
-          },
-          body: JSON.stringify({
-            voice: voice,
-            content: [text],
-            speed: speed,
-            title: title,
-            preset: 'balanced',
-          }),
-        };
-
-        const response = await fetch('https://play.ht/api/v1/convert/', options);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const responseData = await response.json();
-        console.log(responseData);
-
-        //TODO: ADD TRANSCRIBEDID WITH LOGGED IN USER TO DB
-      } catch (err) {
-        console.error(err);
-      }
-    };
-
-    fetchData();
+    const { transcriptionId, loggedUser } = apiClientLogic(
+      voice,
+      text,
+      speed,
+      title
+    );
+    
+    setTranscriptionId(transcriptionId);
+    setLoggedUser(loggedUser);
+    console.log("APICLIENT", loggedUser, transcriptionId)
   }, []);
-
-  return null; 
+  return null;
 }
 
 export default ApiClient;

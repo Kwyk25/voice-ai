@@ -3,15 +3,22 @@ import ApiClient from "../api/apiCreateNew";
 import Default from "./DefaultPage";
 
 export default function TestApi() {
-    console.log("EFFECT RAN")
+  
+
+  const handleSubmit = (e) => {
+    console.log("EFFECT RAN");
     ApiClient({
       voice: "larry",
-      text: "This was said",
+      text: "Hello",
       speed: 1,
       title: "Finsihed Audio",
     });
-    console.log("EFFECT RAN SUCCESFULLY")
+    console.log("EFFECT RAN SUCCESFULLY");
+  };
 
-
-  return <Default></Default>;
+  return (
+      <div style={{width: '100%', height: "auto"}}>
+      <button onClick={handleSubmit}>Submit</button>
+      </div>
+  );
 }
