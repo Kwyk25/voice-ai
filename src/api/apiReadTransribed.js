@@ -100,7 +100,7 @@ export default function ArticleStatus() {
             {audioFiles.map((audioFile) => (
               <li key={audioFile.data.id}>
                 <h3>{`Audio File ${audioFile.number}:`}</h3>
-                <p>Text {audioFile.data.input.text}</p>
+                <p>Text: {audioFile.data.input.text}</p>
                 <p>Voice: {audioFile.data.input.voice}</p>
                 <p>URL: {audioFile.data.output.url}</p>
                 <audio controls>
