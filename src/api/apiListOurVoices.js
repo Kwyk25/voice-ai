@@ -1,28 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ListCustomeVoices() {
-  const secretKey = process.env.REACT_APP_PLAYHT_API_KEY;
-  const userId = process.env.REACT_APP_PLAYHT_API_ID;
+  const [customVoices, setCustomVoices] = useState(null)
 
-  function getList(){
-    const options = {
-        method: 'GET',
-        headers: {
-          accept: 'application/json',
-          AUTHORIZATION: process.env.REACT_APP_PLAYHT_API_KEY,
-          'X-USER-ID': process.env.REACT_APP_PLAYHT_API_ID
-        }
-      };
-      
-      fetch('https://play.ht/api/v2/cloned-voices', options)
-        .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(err => console.error(err));
-}
+  async function getCustomVoices() {
+    try {
+      const response = await fetch(
+        "http://localhost:4005/api/playht/listCustomVoice"
+      );
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
 
-useEffect(() => {
-    getList()
-})
+      const data = await response.json();
+      setCustomVoices(data);
+    } catch (error) {
+      console.error(error);
+      // Handle errors
+    }
+  }
+
+  useEffect(() => {
+    getCustomVoices();
+  }, []);
+
+  useEffect(() => {
+    console.log(customVoices)
+  },[customVoices])
 
   return null;
 }

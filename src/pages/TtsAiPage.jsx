@@ -2,7 +2,7 @@ import "../App.css";
 import Default from "./DefaultPage";
 import InfoCard from "../components/InfoCard";
 import InputText from "../components/InputText";
-import InputResult from "../components/InputResult";
+import InputResult from "../components/InputVoices";
 import { useState } from "react";
 
 export default function TtsAiPage() {
