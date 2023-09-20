@@ -9,7 +9,7 @@ export default function ArticleStatus() {
   const [transcriptions, setTranscriptions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  //Fetches UserData to retrieve Id
+  // Fetches UserData to retrieve Id
   useEffect(() => {
     async function fetchData() {
       const userData = await fetchUserData();
@@ -21,7 +21,7 @@ export default function ArticleStatus() {
     fetchData();
   }, []);
 
-  //gathers all transcriptions from userId
+  // Gathers all transcriptions from userId
   useEffect(() => {
     if (user) {
       const fetchTranscriptions = async () => {
@@ -59,74 +59,72 @@ export default function ArticleStatus() {
               const response = await fetch(
                 `http://localhost:4005/api/playht/retrieveTranscription?transcriptionId=${transcription}`
               );
-  
+
               if (!response.ok) {
                 throw new Error("Network response was empty");
               }
-  
+
               const responseData = await response.json();
-  
+
               // Save responseData.input and responseData.output to localStorage
               localStorage.setItem(`audioFile${index}`, JSON.stringify({
                 input: responseData.input,
                 output: responseData.output,
               }));
-  
+
               return {
                 number: index + 1,
                 data: responseData,
               };
             })
           );
-  
+
           setAudioFiles(audioFiles);
-          setIsLoading(false);
+          setIsLoading(false); // Set isLoading to false once audio files are fetched
         } catch (err) {
           console.error(err);
         }
       };
-  
+
       fetchAudioFiles();
     }
-  }, [user]);
-  
+  }, [user, transcriptions]);
+
   useEffect(() => {
-    console.log("IM HERE TOS HOW IMWORKING", audioFiles)
-  },[audioFiles])
-  
-  return (
-    <div>
-      {status ? (
+    // This will be triggered when isLoading changes to false and audioFiles are available
+    if (!isLoading && audioFiles.length > 0) {
+      setStatus(
         <div>
-          <h2>Article Status</h2>
-          <pre>{JSON.stringify(status, null, 2)}</pre>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
-      <div>
-        <h2>Audio Files</h2>
-        {isLoading ? ( // Display loading indicator while isLoading is true
-          <p>Loading...</p>
-        ) : (
+          <h2>Audio Files</h2>
           <ul>
             {audioFiles.map((audioFile) => (
               <li key={audioFile.data.id}>
                 <h3>{`Audio File ${audioFile.number}:`}</h3>
-                <p>Text: {audioFile.data.input.text}</p>
+                <p>Text {audioFile.data.input.text}</p>
                 <p>Voice: {audioFile.data.input.voice}</p>
                 <p>URL: {audioFile.data.output.url}</p>
                 <audio controls>
-                  <source
-                    src={audioFile.data.output.url}
-                    type="audio/mpeg"
-                  />
+                  <source src={audioFile.data.output.url} type="audio/mpeg" />
                 </audio>
               </li>
             ))}
           </ul>
-        )}
-      </div>
+        </div>
+      );
+    }
+  }, [isLoading, audioFiles]);
+
+  useEffect(() => {
+    console.log("IM HERE TOS HOW IM WORKING", audioFiles)
+  }, [audioFiles]);
+
+  return (
+    <div>
+      {status ? (
+        status
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 }
