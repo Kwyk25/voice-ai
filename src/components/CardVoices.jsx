@@ -3,7 +3,7 @@ import CardGroup from "react-bootstrap/CardGroup";
 import Sponge from "../assets/images/sbsp.jpg";
 import Elon from "../assets/images/Elon.jpg";
 import Singer from "../assets/images/Singer.jpg";
-import button from "../assets/images/ButtonImg.jpg";
+import button from "../assets/images/Button.jpg";
 
 function CardVoices() {
     return (

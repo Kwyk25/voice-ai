@@ -3,7 +3,7 @@ import CardGroup from "react-bootstrap/CardGroup";
 import Coins from "../assets/images/Coins.jpg";
 import Mic from "../assets/images/Mic.jpg";
 import Singer from "../assets/images/Singer.jpg";
-import button from "../assets/images/ButtonImg.jpg";
+import button from "../assets/images/Button.jpg";
 
 function CardVoices2() {
     return (
