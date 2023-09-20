@@ -5,8 +5,9 @@ import { supabase } from "../supabaseClient";
 export default function ArticleStatus() {
   const [user, setUser] = useState(null);
   const [status, setStatus] = useState(null);
-  const [audioFiles, setAudioFiles] = useState([])
-  const [transcriptions, setTranscriptions] = useState([])
+  const [audioFiles, setAudioFiles] = useState([]);
+  const [transcriptions, setTranscriptions] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   //Fetches UserData to retrieve Id
   useEffect(() => {
@@ -53,56 +54,48 @@ export default function ArticleStatus() {
     if (user && transcriptions.length > 0) {
       const fetchAudioFiles = async () => {
         try {
-          const secretKey = process.env.REACT_APP_PLAYHT_API_KEY;
-          const userId = process.env.REACT_APP_PLAYHT_API_ID;
-
           const audioFiles = await Promise.all(
             transcriptions.map(async (transcription, index) => {
-              const options = {
-                method: "GET",
-                headers: {
-                  accept: "application/json",
-                  "content-type": "application/json",
-                  Authorization: secretKey,
-                  "X-User-Id": userId,
-                },
-              };
-
               const response = await fetch(
-                `https://play.ht/api/v1/articleStatus?transcriptionId=${transcription}`,
-                options
+                `http://localhost:4005/api/playht/retrieveTranscription?transcriptionId=${transcription}`
               );
-
+  
               if (!response.ok) {
-                throw new Error("Network response was not ok");
+                throw new Error("Network response was empty");
               }
-
+  
               const responseData = await response.json();
-              const audioUrl = responseData.audioUrl;
-
-              // Save audioUrl to local storage
-              localStorage.setItem(`audioUrl${index}`, audioUrl);
+  
+              // Save responseData.input and responseData.output to localStorage
+              localStorage.setItem(`audioFile${index}`, JSON.stringify({
+                input: responseData.input,
+                output: responseData.output,
+              }));
+  
               return {
                 number: index + 1,
-                data: responseData, // Add other data you need here
+                data: responseData,
               };
             })
           );
-
+  
           setAudioFiles(audioFiles);
+          setIsLoading(false);
         } catch (err) {
           console.error(err);
         }
       };
-
+  
       fetchAudioFiles();
     }
-  }, [user, transcriptions]);
-
-  console.log(transcriptions);
-  console.log(audioFiles)
-    return (
-      <div>
+  }, [user]);
+  
+  useEffect(() => {
+    console.log("IM HERE TOS HOW IMWORKING", audioFiles)
+  },[audioFiles])
+  
+  return (
+    <div>
       {status ? (
         <div>
           <h2>Article Status</h2>
@@ -113,17 +106,27 @@ export default function ArticleStatus() {
       )}
       <div>
         <h2>Audio Files</h2>
-        <ul>
-          {audioFiles.map((audioFile) => (
-            <li key={audioFile.number}>
-              {`Audio File ${audioFile.number}:`}
-              <audio controls>
-                <source src={localStorage.getItem(`audioUrl${audioFile.number - 1}`)} type="audio/mpeg" />
-              </audio>
-            </li>
-          ))}
-        </ul>
+        {isLoading ? ( // Display loading indicator while isLoading is true
+          <p>Loading...</p>
+        ) : (
+          <ul>
+            {audioFiles.map((audioFile) => (
+              <li key={audioFile.data.id}>
+                <h3>{`Audio File ${audioFile.number}:`}</h3>
+                <p>Text: {audioFile.data.input.text}</p>
+                <p>Voice: {audioFile.data.input.voice}</p>
+                <p>URL: {audioFile.data.output.url}</p>
+                <audio controls>
+                  <source
+                    src={audioFile.data.output.url}
+                    type="audio/mpeg"
+                  />
+                </audio>
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
-    );
+  );
 }
