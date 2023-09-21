@@ -47,6 +47,7 @@ export default function SignUpPage() {
 
     return (
         <Default>
+          <div className="py-20"></div>
             <div className="py-20">
                 <Card
                     className="bg-gradient-to-tr from-pink-500 via-blue-800 to-cyan-500 
@@ -106,7 +107,7 @@ export default function SignUpPage() {
                     </p>
                 </Card>
             </div>
-            <div className="py-12"></div>
+            <div className="py-20"></div>
         </Default>
     );
 }
