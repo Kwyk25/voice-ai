@@ -70,7 +70,7 @@ function InputText({ selectedVoice, onSelectedVoiceChange }) {
 
   useEffect(() => {
     if (isSubmitted) {
-        window.location.href = "/loadTranscripe";
+        window.location.href = "/SavedAudioPage";
     }
   }, [isSubmitted]);
 
