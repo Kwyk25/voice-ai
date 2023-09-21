@@ -112,7 +112,6 @@ export default function ArticleStatus() {
             window.location.href = "/savedAudioPage";
           }
 
-          // Redirect to /savedAudioPage once the logic is completed
         } catch (err) {
           console.error(err);
         }
