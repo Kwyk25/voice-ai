@@ -98,16 +98,27 @@ export default function ArticleStatus() {
           );
 
           setAudioFiles(audioFiles);
-          setIsLoading(false);
+  
+
+          if (audioFiles.length > 0 && audioFiles[audioFiles.length - 1].data.output === null) {
+            console.log("Last transcription output is null");
+            
+            setTimeout(() => {
+              fetchAudioFiles(); // Retry fetchAudioFiles after 4 seconds
+            }, 4000);
+          } else {
+            console.log("Last transcription output is not null");
+            setIsLoading(false);
+            window.location.href = "/savedAudioPage";
+          }
 
           // Redirect to /savedAudioPage once the logic is completed
-          window.location.href = "/savedAudioPage";
         } catch (err) {
           console.error(err);
         }
       };
 
-      setTimeout(fetchAudioFiles, 5000);
+      fetchAudioFiles()
     }
   }, [user, transcriptions]);
 
