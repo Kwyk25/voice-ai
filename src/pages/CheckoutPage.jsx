@@ -186,7 +186,7 @@ export default function CheckoutPage() {
                             name="flexCheck"
                             value=""
                             id="flexCheckDefault"
-                            label="You confirm to sell your sole to use as well"
+                            label="You confirm to sell us your soul"
                         />
                     </div>
 
