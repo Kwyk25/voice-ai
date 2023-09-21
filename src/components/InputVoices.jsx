@@ -208,14 +208,8 @@ function InputResult({ selectedVoice, onSelectedVoiceChange }) {
 
   return (
     <div>
-      <h3>Voice List</h3>
-      {customVoices && (
-        <button className="btn btn-primary" onClick={toggleCustomVoices}>
-          {displayedVoices === predefinedVoices
-            ? "Try Custom Voices"
-            : "Switch to Predefined Voices"}
-        </button>
-      )}
+      <h3 className="text-white">Voice List</h3>
+      
       {displayedVoices && (
         <table className="table table-bordered">
           <thead>
@@ -291,6 +285,13 @@ function InputResult({ selectedVoice, onSelectedVoiceChange }) {
           </li>
         </ul>
       </nav>
+      {customVoices && (
+        <button className="btn btn-primary my-3" onClick={toggleCustomVoices}>
+          {displayedVoices === predefinedVoices
+            ? "Try Custom Voices"
+            : "Switch to Predefined Voices"}
+        </button>
+      )}
     </div>
   );
 }
