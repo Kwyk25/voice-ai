@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import { useEffect, useState } from "react";
 import apiClientLogic from "../api/apiClientLogic";
 import { supabase } from "../supabaseClient";
+import ArticleStatus from "../api/apiReadTransribed";
 
 function InputText({ selectedVoice, onSelectedVoiceChange }) {
   const [inputPrompt, setInputPrompt] = useState("GOODBYE");
@@ -32,12 +33,9 @@ function InputText({ selectedVoice, onSelectedVoiceChange }) {
         inputTitle
       );
       setIsSubmitted(true);
-      console.log("Ran Successfully.");
 
-      console.log(transcriptionId, loggedUser)
       if (transcriptionId && loggedUser) {
         setIsSubmitted(true);
-        console.log("Ran Successfully.");
         await insertDataToDatabase(transcriptionId, loggedUser);
       } else {
         console.error("Transcription ID or loggedUser is missing.");
@@ -72,7 +70,7 @@ function InputText({ selectedVoice, onSelectedVoiceChange }) {
 
   useEffect(() => {
     if (isSubmitted) {
-        window.location.href = "/SavedAudioPage";
+        window.location.href = "/loadTranscripe";
     }
   }, [isSubmitted]);
 
