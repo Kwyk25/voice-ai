@@ -2,8 +2,8 @@ import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import Coins from "../assets/images/Coins.jpg";
 import Mic from "../assets/images/Mic.jpg";
-import Singer from "../assets/images/Singer.jpg";
-import button from "../assets/images/ButtonImg.jpg"
+import Talker from "../assets/images/Taking.jpg";
+import button from "../assets/images/Button.jpg"
 
 function InfoCard() {
     return (
@@ -11,45 +11,36 @@ function InfoCard() {
             <Card className="bg-slate-900 border-0 mx-1">
                 <Card.Img variant="top" src={Coins} />
                 <Card.Body className="bg-slate-900 text-white">
-                    <Card.Title>purchase credits</Card.Title>
+                    <Card.Title className="py-2">Purchase Credits</Card.Title>
                     <Card.Text>
-                        This is a wider card with supporting text below as a
-                        natural lead-in to additional content. This content is a
-                        little bit longer.
+                        Purchasing credits will allow you to use the text-to-speech feature. 
                     </Card.Text>
                 </Card.Body>
             </Card>
             <Card className="bg-slate-900 text-white border-0 mx-1">
                 <Card.Img variant="top" src={Mic} />
                 <Card.Body className="bg-slate-900 text-white">
-                    <Card.Title>select song</Card.Title>
+                    <Card.Title className="py-2">Add A Title With A Prompt</Card.Title>
                     <Card.Text>
-                        This card has supporting text below as a natural lead-in
-                        to additional content.{" "}
+                        By imputing a prompt into the text box, it will allow your text-to-speech voice say what you have written down.
                     </Card.Text>
                 </Card.Body>
             </Card>
             <Card className="border-0 mx-1">
-                <Card.Img variant="top" src={Singer} />
+                <Card.Img variant="top" src={Talker} />
                 <Card.Body className="bg-slate-900 text-white border-0 ">
-                    <Card.Title>select singer</Card.Title>
+                    <Card.Title className="py-2">Select A Voice</Card.Title>
                     <Card.Text>
-                        This is a wider card with supporting text below as a
-                        natural lead-in to additional content. This card has
-                        even longer content than the first to show that equal
-                        height action.
+                        Choose one of a 100+ voices Which you like with the given prompt.
                     </Card.Text>
                 </Card.Body>
             </Card>
             <Card className="border-0 mx-1">
                 <Card.Img variant="top" src={button} />
                 <Card.Body className="bg-slate-900 text-white ">
-                    <Card.Title>hit generate </Card.Title>
+                    <Card.Title className="py-2">Hit Generate Prompt</Card.Title>
                     <Card.Text>
-                        This is a wider card with supporting text below as a
-                        natural lead-in to additional content. This card has
-                        even longer content than the first to show that equal
-                        height action.
+                        Hit the generate prompt button and wait for us to make the magic!
                     </Card.Text>
                 </Card.Body>
             </Card>
