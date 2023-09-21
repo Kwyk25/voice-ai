@@ -66,11 +66,13 @@ export default function ArticleStatus() {
                 }
 
                 responseData = await response.json();
+                console.log(responseData)
               }
 
               // Once the output is available, save it to local storage
               const localStorageKey = `audioFile${index}`;
               const localStorageData = {
+                id: responseData.id,
                 input: responseData.input,
                 output: responseData.output,
               };
@@ -104,10 +106,10 @@ export default function ArticleStatus() {
           console.error(err);
         }
       };
-      setTimeout(fetchAudioFiles, 7500);
+
+      setTimeout(fetchAudioFiles, 5000);
     }
   }, [user, transcriptions]);
-
 
   return (
     <div>

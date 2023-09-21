@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Default from "./DefaultPage";
 import { MDBCard, MDBCardBody, MDBCol, MDBRow } from "mdb-react-ui-kit";
+import { supabase } from "../supabaseClient";
 
 function SavedAudioPage() {
   const [audioFiles, setAudioFiles] = useState([]);
@@ -50,6 +51,64 @@ function SavedAudioPage() {
     setAudioFiles(audioFiles);
   }, []); // The empty dependency array ensures this effect runs only once on component mount
 
+  useEffect(() => {
+    console.log(audioFiles);
+  }, [audioFiles]);
+
+  function removeFromLocalStorage(id) {
+    // Find the audio file with the specified ID in the audioFiles state
+    const audioFileIndexToRemove = audioFiles.findIndex((audioFile) => audioFile.id === id);
+    console.log(audioFileIndexToRemove);
+    // Check if the audio file was found
+    if (audioFileIndexToRemove !== -1) {
+      // Construct the key for the audio file using the found input ID
+      const key = `audioFile${audioFileIndexToRemove}`;
+      console.log("key", key);
+      // Check if the key exists in local storage
+      if (localStorage.getItem(key)) {
+        // Remove the key from local storage
+        localStorage.removeItem(key);
+      }
+  
+      // Update the state with the updated audio files
+      setAudioFiles((prevAudioFiles) =>
+        prevAudioFiles.filter((audioFile) => audioFile.input.id !== id)
+      );
+    }
+  }
+
+  async function removeFromDataBase(id) {
+    try {
+      // Use Supabase to delete the item from the database
+      const { error } = await supabase
+        .from("Transcription")
+        .delete()
+        .eq("newTranscription", id); 
+
+      if (error) {
+        console.error("Error deleting item from the database:", error);
+        return;
+      }
+    } catch (error) {
+      console.error("Error handling delete:", error);
+    }
+  }
+
+  async function handleDelete(id) {
+    // Prompt the user for confirmation
+    const confirmed = window.confirm("Are you sure you want to delete this? This action is irreversible.");
+  
+    if (confirmed) {
+      removeFromLocalStorage(id);
+      removeFromDataBase(id);
+  
+      // Update the state with the updated audio files
+      setAudioFiles((prevAudioFiles) =>
+        prevAudioFiles.filter((audioFile) => audioFile.id !== id)
+      );
+    }
+  }
+
   return (
     <Default>
       <div className="pt-5">
@@ -87,6 +146,12 @@ function SavedAudioPage() {
                       )}
                       <h3 className="text-white">"{audioFile.input.text}"</h3>
                     </div>
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleDelete(audioFile.id)}
+                    >
+                      Delete
+                    </button>
                   </MDBCardBody>
                 </MDBCard>
               </MDBCol>
