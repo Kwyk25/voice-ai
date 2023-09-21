@@ -224,7 +224,7 @@ function InputResult({ selectedVoice, onSelectedVoiceChange }) {
             {getCurrentPageVoices().map((voice, index) => (
               <tr
                 key={index}
-                className={voice.name === selectedVoice ? "table-active" : ""}
+                className={voice.id === selectedVoice ? "table-active" : ""}
               >
                 <td>{voice.name}</td>
                 <td>{voice.language}</td>
