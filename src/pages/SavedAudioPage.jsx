@@ -53,45 +53,48 @@ function SavedAudioPage() {
   return (
     <Default>
       <div className="pt-5">
-  <h1 className="text-white">Saved Audios</h1>
-  <div className="container mt-4 mb-4">
-    <MDBRow>
-      {audioFiles.map((audioFile, index) => (
-        <MDBCol
-          xl={4}
-          lg={4}
-          md={6} // Adjusted column size to create 2 columns on larger screens
-          sm={6}
-          xs={12}
-          key={index}
-          className="mb-4"
-        >
-          <MDBCard>
-            <MDBCardBody className="bg-slate-950 text-center">
-              <div className="p-3">
-                <h3 className="text-white">
-                  Voice:{" "}
-                  {isVoiceURL(audioFile.input.voice)
-                    ? extractVoiceNameFromURL(audioFile.input.voice)
-                    : audioFile.input.voice}
-                </h3>
-                <audio
-                  controls
-                  style={{width: '100%'}}
-                >
-                  <source src={audioFile.output.url} type="audio/mpeg" />
-                </audio>
-                <h3 className="text-white">"{audioFile.input.text}"</h3>
-              </div>
-            </MDBCardBody>
-          </MDBCard>
-        </MDBCol>
-      ))}
-    </MDBRow>
-  </div>
-</div>
-<div className="py-20"></div>
-
+        <h1 className="text-white">Saved Audios</h1>
+        <div className="container mt-4 mb-4">
+          <MDBRow>
+            {audioFiles.map((audioFile, index) => (
+              <MDBCol
+                xl={4}
+                lg={4}
+                md={6} // Adjusted column size to create 2 columns on larger screens
+                sm={6}
+                xs={12}
+                key={index}
+                className="mb-4"
+              >
+                <MDBCard>
+                  <MDBCardBody className="bg-slate-950 text-center">
+                    <div className="p-3">
+                      <h3 className="text-white">
+                        Voice:{" "}
+                        {isVoiceURL(audioFile.input.voice)
+                          ? extractVoiceNameFromURL(audioFile.input.voice)
+                          : audioFile.input.voice}
+                      </h3>
+                      {audioFile.output && audioFile.output.url ? (
+                        <audio controls style={{ width: "100%" }}>
+                          <source
+                            src={audioFile.output.url}
+                            type="audio/mpeg"
+                          />
+                        </audio>
+                      ) : (
+                        <p>No audio available</p>
+                      )}
+                      <h3 className="text-white">"{audioFile.input.text}"</h3>
+                    </div>
+                  </MDBCardBody>
+                </MDBCard>
+              </MDBCol>
+            ))}
+          </MDBRow>
+        </div>
+      </div>
+      <div className="py-20"></div>
     </Default>
   );
 }
