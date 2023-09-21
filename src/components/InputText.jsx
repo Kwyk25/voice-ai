@@ -23,7 +23,7 @@ function InputText({ selectedVoice, onSelectedVoiceChange }) {
     setInputPrompt(e.target.value);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
     try {
       const { transcriptionId, loggedUser } = await apiClientLogic(
         selectedVoice,
@@ -72,7 +72,7 @@ function InputText({ selectedVoice, onSelectedVoiceChange }) {
 
   useEffect(() => {
     if (isSubmitted) {
-        window.location.href = "/SavedAudioPage";
+        window.location.href = "/loadTranscripe";
     }
   }, [isSubmitted]);
 

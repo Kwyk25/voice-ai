@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 
 export default function CreateNewVoice() {
-  const secretKey = process.env.REACT_APP_PLAYHT_API_KEY;
-  const userId = process.env.REACT_APP_PLAYHT_API_ID;
   const [voiceName, setVoiceName] = useState("");
   const [voiceFile, setVoiceFile] = useState(null);
 
@@ -11,61 +9,37 @@ export default function CreateNewVoice() {
   }
 
   function handleFileChange(e) {
-    setVoiceFile(e.target.value);
+    setVoiceFile(e.target.files[0]); 
   }
 
   useEffect(() => {
     console.log(`TRYING\nVoice Name: ${voiceName}\nVoice File: ${voiceFile}`);
   }, [voiceFile, voiceName]);
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    console.log(`TRYING\nVoice Name: ${voiceName}\nVoice File: ${voiceFile}`);
-    createVoice();
-  }
+    console.log(`TRYING\nVoice Name: ${voiceName}\nVoice File: ${voiceFile.name}`);
 
-  function listVoices() {
-    const options = {
-      method: "GET",
-      headers: {
-        accept: "application/json",
-        AUTHORIZATION: secretKey,
-        "X-USER-ID": userId,
-      },
-    };
+    const formData = new FormData(); // Create a FormData object
+    formData.append("voiceName", voiceName);
+    formData.append("sampleFile", voiceFile);
 
-    fetch("https://play.ht/api/v2/cloned-voices", options)
-      .then((response) => response.json())
-      .then((response) => console.log(response))
-      .catch((err) => console.error(err));
-  }
-
-  useEffect(() => {
-    // listVoices()
-  }, []);
-
-  async function createVoice() {
     try {
-        const response = await fetch('http://localhost:4005/api/createVoice', { // Use relative path to your server
-          method: 'POST',
-          headers: {
-            'accept': 'application/json',
-            'content-type': 'application/json', // Update content-type if needed
-          },
-          body: JSON.stringify({ voiceName, voiceFile }),
-        });
-    
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-    
-        const data = await response.json();
-        console.log('Voice clone created:', data);
-      } catch (error) {
-        console.error('Error creating voice clone:', error);
-      }
-  }
+      const response = await fetch('http://localhost:4005/api/playht/createCustomVoice', {
+        method: 'POST',
+        body: formData, // Send the FormData object
+      });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log('Voice clone created:', data);
+    } catch (error) {
+      console.error('Error creating voice clone:', error);
+    }
+  }
   return (
     <div>
       <h1>Create Instant Voice Clone</h1>
@@ -86,7 +60,6 @@ export default function CreateNewVoice() {
             type="file"
             id="sampleFile"
             accept="audio/*"
-            value={voiceFile}
             onChange={handleFileChange}
             required
           />
