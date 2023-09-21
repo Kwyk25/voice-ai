@@ -2,7 +2,7 @@ import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import Coins from "../assets/images/Coins.jpg";
 import Mic from "../assets/images/Mic.jpg";
-import Singer from "../assets/images/Singer.jpg";
+
 import button from "../assets/images/Button.jpg";
 
 function CardVoices2() {
@@ -20,12 +20,7 @@ function CardVoices2() {
                     <Card.Title>select song</Card.Title>
                 </Card.Body>
             </Card>
-            <Card className="border-0 mx-1">
-                <Card.Img variant="top" src={Singer} />
-                <Card.Body className="bg-slate-900 text-white border-0 ">
-                    <Card.Title>select singer</Card.Title>
-                </Card.Body>
-            </Card>
+           
             <Card className="border-0 mx-1">
                 <Card.Img variant="top" src={button} />
                 <Card.Body className="bg-slate-900 text-white ">
