@@ -53,7 +53,8 @@ export default function LoginPage({ setToken }) {
 
   return (
     <Default>
-      <div className="py-20">
+      <div className="py-20"></div>
+      <div className="py-12">
         <Card
           className="bg-gradient-to-tr from-pink-500 via-blue-800 to-cyan-500 
                     mx-auto"
@@ -104,7 +105,9 @@ export default function LoginPage({ setToken }) {
           </p>
         </Card>
       </div>
-      <div className="py-12"></div>
+      <div className="py-20"></div>
+      <div className="py-14"></div>
     </Default>
   );
 }
+5
