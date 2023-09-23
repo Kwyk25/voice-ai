@@ -110,4 +110,3 @@ export default function LoginPage({ setToken }) {
     </Default>
   );
 }
-5
