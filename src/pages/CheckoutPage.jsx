@@ -24,7 +24,7 @@ export default function CheckoutPage() {
 
     return (
         <Default>
-            <div className="pt-5 text-white">
+            <div className="pt-5 textblack">
                 <h1>CheckoutPage</h1>
                 <Form className="mt-5">
                     <h3> Additional Information</h3>
